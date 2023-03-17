@@ -5,13 +5,42 @@ body{
 .Card{
   border-radius: 20px;
   height: 80%;
-  width: 30%;
+  width: 25%;
   background-color: pink;
   position:absolute;
   text-align: center;
   margin: auto;
   top: 15%;
   left: 35%;
+}
+
+
+.main button{
+  border-radius: 50%;
+  border-width: 5px;
+  border-color: #666666;
+  height: 60px;
+  width: 60px;
+  font-size: larger;
+  position: absolute;
+}
+.yes{
+  color: #ff85be;
+  top: 85%;
+  left: 50%;
+}
+.no{
+  color: aquamarine;
+  top: 85%;
+  left: 40%;
+}
+.yes:hover {
+  background-color: #C74A78;
+  color: white;
+}
+.no:hover {
+  color: white;
+  background-color:greenyellow;
 }
 
 .center {
