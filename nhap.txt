@@ -1,0 +1,14 @@
+1 user{
+        info
+    id;
+    name;
+    address;
+    age;
+    position;
+    career;
+        subSystem
+    seen; query select
+    match;
+    status;
+    if(match == status == "ok") => tuong hop
+}

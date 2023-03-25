@@ -3,36 +3,37 @@ import { motion } from "framer-motion";
 import './App.css';
 
 
-function ProfileCard({person}) {
+const ProfileCard = (props) => {
   const [x, setX] = useState(0);
   const [opacity, setShow] = useState(1);
-  if(person.choice === "yes" && opacity !== 0){
+  if(props.person.choice === "yes" && opacity !== 0){
     setX(400);
     setShow(0);
-    person.seen = true;
+    props.person.seen = true;
   }
-  if((person.choice === "no" && opacity !== 0)){
+  if((props.person.choice === "no" && opacity !== 0)){
     setX(-400);
     setShow(0);
-    person.seen = true;
+    props.person.seen = true;
   }
-  //console.log(choice);
   return (
-    <motion.div className="Card" drag="x" dragSnapToOrigin={!person.seen} animate={{ x: x, opacity: opacity }}
+    <motion.div className="Card" drag="x" dragSnapToOrigin={!props.person.seen} animate={{ x: x, opacity: opacity }}
     onDragEnd={
       (event, info) => {
-        console.log(info.offset.x)
         if(info.offset.x > 70){
           setX(400);
           setShow(0);
-          person.seen = true;
-          person.choice = 'yes';
+          props.person.seen = true;
+          props.person.choice = 'yes';
+          props.add(props.person);
+          props.changeCur(props.person.id - 1);
         }
         else if(info.offset.x < -70){
           setX(-400);
           setShow(0);
-          person.seen = true;
-          person.choice = 'no';
+          props.person.seen = true;
+          props.person.choice = 'no';
+          props.changeCur(props.person.id - 1);
         }
       }
     }>
@@ -40,7 +41,7 @@ function ProfileCard({person}) {
           image
         </div>
         <div className="card-body text-center">
-          <h5 className="card-title">name: {person.fullName}, id: {person.id}</h5>
+          <h5 className="card-title">name: {props.person.fullName}, id: {props.person.id}</h5>
           <h4 className="card-text">age</h4>
           <p className="card-text">desc</p>
           
