@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 import ProfileCard from './ProfileCard'
+import ChatBox from './ChatBox';
 import './App.css';
 
 var per = [
@@ -37,9 +38,12 @@ function Main() {
   console.log(match);
   return (
     <div className='main'>
-      {curr.num <= 0 ? alert("hết") /*get more*/ : per.map(person => <ProfileCard key={person.id} person = {person} changeCur = {change} add = {addNew}/>)}
-      <button className='no' onClick={handleNo}>✖</button>
-      <button className='yes' onClick={handleYes}>❤</button>
+      <ChatBox/>
+      <div className='cardBox'>
+        {curr.num <= 0 ? alert("hết") /*get more*/ : per.map(person => <ProfileCard key={person.id} person = {person} changeCur = {change} add = {addNew}/>)}
+        <button className='no' onClick={handleNo}>✖</button>
+        <button className='yes' onClick={handleYes}>❤</button>
+      </div>
     </div>
   )
 }

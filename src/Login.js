@@ -1,6 +1,4 @@
 import React,{ useState } from 'react'
-import { motion } from 'framer-motion';
-  
 
 function Login() {
   const [account, setAccount] = useState({
@@ -23,7 +21,7 @@ function Login() {
 
   return (
     <React.Fragment>
-        <motion.div className='center' drag>
+        <div className='center'>
           <a href='/'>
             <button className='closebtn'>✖</button>
           </a>
@@ -57,7 +55,7 @@ function Login() {
               Don't have a account?<a href="/signup"> Sign up</a>
             </div>
           </form>
-        </motion.div>
+        </div>
     </React.Fragment>
   )
 }
