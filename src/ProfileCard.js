@@ -38,11 +38,11 @@ const ProfileCard = (props) => {
       }
     }>
         <div className="img-container">
-          image
+          <img src={props.person.imageURL} alt='' width={200} height={200}/>
         </div>
         <div className="card-body text-center">
-          <h5 className="card-title">name: {props.person.fullName}, id: {props.person.id}</h5>
-          <h4 className="card-text">age</h4>
+          <h5 className="card-title">name: {props.person.displayName}, id: {props.person._id}</h5>
+          <h4 className="card-text">age: {props.person.age}</h4>
           <p className="card-text">desc</p>
           
         </div>
