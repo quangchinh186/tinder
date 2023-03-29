@@ -2,7 +2,6 @@ import { React, useState } from 'react'
 import { motion } from "framer-motion";
 import './App.css';
 
-
 const ProfileCard = (props) => {
   const [x, setX] = useState(0);
   const [opacity, setShow] = useState(1);
@@ -37,9 +36,7 @@ const ProfileCard = (props) => {
         }
       }
     }>
-        <div className="img-container">
-          image
-        </div>
+        <img className='imageShow' src={props.person.img} alt='test'/>
         <div className="card-body text-center">
           <h5 className="card-title">name: {props.person.fullName}, id: {props.person.id}</h5>
           <h4 className="card-text">age</h4>
