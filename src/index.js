@@ -4,6 +4,7 @@ import App from './App';
 import Signup from './Signup';
 import Login from './Login';
 import Main from './Main'
+import { GetPass, Authorize} from './GetPass';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 
@@ -16,6 +17,8 @@ root.render(
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/' element={<App/>}/>
+        <Route path='/auth' element={<Authorize/>}/>
+        <Route path='/resPass' element={<GetPass/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

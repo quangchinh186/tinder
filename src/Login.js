@@ -43,7 +43,7 @@ function Login() {
             <button className='closebtn'>✖</button>
           </a>
           <h1>Login</h1>
-          <form method='post'>
+          <form>
             <div className='txt_field'>
               <input 
               type='text' 
@@ -63,11 +63,8 @@ function Login() {
               required/>
               <label>Password</label>
             </div>
-
-            <div className='pass'>Forgot Password?</div>
-
             <button type='submit' onClick={handleSubmit}>Login</button>
-
+            <a href='/auth' className='pass'>Forgot Password?</a>
             <div className='signup'>
               Don't have a account?<a href="/signup"> Sign up</a>
             </div>
