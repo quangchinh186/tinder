@@ -28,6 +28,7 @@ body{
   top: 30%;
   left: 40%;
   border-style: solid;
+  border-radius: 10px;
   background-color: blue;
   padding:5px 11px 3px 11px;
 }

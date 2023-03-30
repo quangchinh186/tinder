@@ -17,6 +17,7 @@ root.render(
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/' element={<App/>}/>
+        <Route path='/auth' element={<Authorize/>}/>
         <Route path='/resPass' element={<GetPass/>}/>
       </Routes>
     </BrowserRouter>

@@ -53,7 +53,7 @@ function Login() {
               <label>Password</label>
             </div>
             <button type='submit' onClick={handleSubmit}>Login</button>
-            <a href='/resPass' className='pass'>Forgot Password?</a>
+            <a href='/auth' className='pass'>Forgot Password?</a>
             <div className='signup'>
               Don't have a account?<a href="/signup"> Sign up</a>
             </div>

@@ -3,12 +3,13 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 export function Authorize() {
+  let navigate = useNavigate();
     const [email, setEmail] = useState('');
     const handleChange = (event) => {
         setEmail(event.value)
     }
     const handleSubmit = () => {
-        
+        navigate('/resPass');
     }
     return (
         <div className='center'>
