@@ -1,4 +1,5 @@
 import React, {useState} from 'react' 
+import data from './Test/users.json'
 
 function Signup() {
   const [account, setAccount] = useState({
@@ -16,7 +17,8 @@ function Signup() {
 
   const handleSubmit = (event) => {
     //request API here...
-    console.log(account);
+    data.push(account);
+    console.log(data)
     event.preventDefault();
   };
 

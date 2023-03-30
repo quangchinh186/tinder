@@ -1,7 +1,40 @@
 body{
-  background-color: white;
+  background-color: gray;
   margin: 0;
 }
+
+.preview{
+  margin: 0;
+  padding: 0;
+}
+.preview video {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
+.title{
+  position:absolute; 
+  font-size:100px; 
+  font-weight:700;  
+  letter-spacing:0px; 
+  font-family: calibri;
+  width:150px; 
+  text-align:center; 
+  margin:auto; 
+  top: 30%;
+  left: 40%;
+  border-style: solid;
+  background-color: blue;
+  padding:5px 11px 3px 11px;
+}
+
+
+
+
 /* chatBox */
 
 /* main.js */
@@ -161,7 +194,7 @@ form .txt_field{
 /* navbar */
 .nav{
   font-family: Calibri;
-  background-color: #FF0080;
+  background-color: transparent;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -170,8 +203,9 @@ form .txt_field{
   padding: 0 1rem;
 }
 
-.title {
-  font-size: 2.75rem;
+.logo{
+  height: 4rem;
+  width: 4rem;
 }
 
 .nav ul{

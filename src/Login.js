@@ -1,10 +1,6 @@
 import React,{ useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-
-const admin = {
-  username : "admin",
-  password : "admin"
-}
+import data from './Test/users.json'
 
 function Login() {
   let navigate = useNavigate();
@@ -21,10 +17,11 @@ function Login() {
   };
 
   const handleSubmit = (event) => {
-    //request API here...
-    if(JSON.stringify(account) === JSON.stringify(admin)){
-      navigate('/m')
+    let obj = data.find(o => o.username === account.username);
+    if(obj.password === account.password){
+      navigate('/m');
     }
+    console.log('sai');
     event.preventDefault();
   };
 
@@ -35,7 +32,7 @@ function Login() {
             <button className='closebtn'>✖</button>
           </a>
           <h1>Login</h1>
-          <form method='post'>
+          <form>
             <div className='txt_field'>
               <input 
               type='text' 
@@ -55,11 +52,8 @@ function Login() {
               required/>
               <label>Password</label>
             </div>
-            
-            <div className='pass'>Forgot Password?</div>
-            
             <button type='submit' onClick={handleSubmit}>Login</button>
-            
+            <a href='/resPass' className='pass'>Forgot Password?</a>
             <div className='signup'>
               Don't have a account?<a href="/signup"> Sign up</a>
             </div>
