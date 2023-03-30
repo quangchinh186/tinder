@@ -1,5 +1,6 @@
 import React,{ useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { getUsers } from './Fetch.js';
 
 const admin = {
   username : "admin",
@@ -22,9 +23,16 @@ function Login() {
 
   const handleSubmit = (event) => {
     //request API here...
-    if(JSON.stringify(account) === JSON.stringify(admin)){
-      navigate('/m')
-    }
+    const usersFilter = { account: account }
+    getUsers(usersFilter, (users) => {
+      if (users.length === 0) {
+        window.alert("Wrong username or password!!1!")
+      } else {
+        localStorage.setItem('userId', users[0]._id);
+        console.log(users[0])
+        navigate('/m')
+      }
+    })
     event.preventDefault();
   };
 
@@ -45,7 +53,7 @@ function Login() {
               required/>
               <label>Username</label>
             </div>
-            
+
             <div className='txt_field'>
               <input 
               type='password'
@@ -55,11 +63,11 @@ function Login() {
               required/>
               <label>Password</label>
             </div>
-            
+
             <div className='pass'>Forgot Password?</div>
-            
+
             <button type='submit' onClick={handleSubmit}>Login</button>
-            
+
             <div className='signup'>
               Don't have a account?<a href="/signup"> Sign up</a>
             </div>
