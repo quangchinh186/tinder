@@ -3,8 +3,8 @@ import React from 'react'
 function NavigationBar() {
     return (
       <React.Fragment>
-          <nav>
-            <div className='title'>Logo</div>
+          <nav className='nav'>
+            <a href='/' className='title'>UETinder</a>
             <ul>
               <li><a href='/login'>Login</a></li>
               <li><a href='/signup'>Sign up</a></li>

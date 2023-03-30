@@ -1,20 +1,8 @@
 import { React, useState } from 'react'
 import ProfileCard from './ProfileCard'
 import ChatBox from './ChatBox';
-import './App.css';
 
-/*var per = [
-  {id : 0, fullName : 'A', choice : 'empty', seen: false}, 
-  {id : 1, fullName : 'B', choice : 'empty', seen: false},
-  {id : 2, fullName : 'C', choice : 'empty', seen: false},
-  {id : 3, fullName : 'D', choice : 'empty', seen: false},
-  {id : 4, fullName : 'E', choice : 'empty', seen: false},
-  {id : 5, fullName : 'F', choice : 'empty', seen: false},
-  {id : 6, fullName : 'G', choice : 'empty', seen: false},
-  {id : 7, fullName : 'H', choice : 'empty', seen: false},
-  {id : 8, fullName : 'I', choice : 'empty', seen: false},
-  {id : 9, fullName : 'J', choice : 'empty', seen: false},]*/
-
+//import { per } from './testData';
 
 var match = [];
 

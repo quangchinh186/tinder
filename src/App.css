@@ -1,5 +1,6 @@
 body{
   background-color: white;
+  margin: 0;
 }
 /* chatBox */
 
@@ -14,6 +15,11 @@ body{
   margin: auto;
   top: 15%;
   left: 35%;
+}
+.imageShow{
+  height: 60%;
+  width: 70%;
+  border-radius: 10px;
 }
 .main button{
   border-radius: 50%;
@@ -61,11 +67,11 @@ body{
 .center .closebtn{
     font-size: 30px;
     border: none;
-    background-color: ghostwhite;
+    background-color: transparent;
     margin-left: 90%;
 }
 .center .closebtn:hover{
-    color: red;
+    cursor: pointer;
 }
 .center form{
     padding: 0 40px;
@@ -153,37 +159,40 @@ form .txt_field{
   }
   
 /* navbar */
-nav{
+.nav{
+  font-family: Calibri;
+  background-color: #FF0080;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.title {
+  font-size: 2.75rem;
+}
+
+.nav ul{
+  padding: 0;
+  margin: 0;
   list-style: none;
-  background-color: red;
-  position: relative;
-  font-size: 35px;
-  height: 80px;
-  width: 100%;
-  box-sizing: border-box;
-  font-family: impact;
+  display: flex;
+  gap: 1rem;
+  font-size: 2rem;
 }
-nav .title{
-  color: white;
-}
-nav ul{
-  margin-left: 75%;
-  
-  display: inline;
-  background-color: green;
-}
-nav ul li{
-  display: inline;
-  margin: 20px;
-  
-  background-color: black;
-}
-nav ul li a{
-  color: white;
+
+.nav a{
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: .25rem;
 }
 nav ul li a:hover{
-  padding: 5px;
-  border-radius: 10px;
-  background-color: gray;
-  text-decoration: underline;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
 }

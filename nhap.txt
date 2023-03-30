@@ -3,6 +3,8 @@
     id;
     name;
     address;
+    gender;
+    interest in;
     age;
     position;
     career;

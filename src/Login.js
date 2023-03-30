@@ -1,6 +1,13 @@
 import React,{ useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+
+const admin = {
+  username : "admin",
+  password : "admin"
+}
 
 function Login() {
+  let navigate = useNavigate();
   const [account, setAccount] = useState({
     username:"",
     password:"",
@@ -15,7 +22,9 @@ function Login() {
 
   const handleSubmit = (event) => {
     //request API here...
-    console.log(account);
+    if(JSON.stringify(account) === JSON.stringify(admin)){
+      navigate('/m')
+    }
     event.preventDefault();
   };
 
