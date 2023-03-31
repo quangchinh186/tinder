@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from './media/logoUET.png'
+import logo from '../Media/logoUET.png'
 
 function NavigationBar() {
     return (

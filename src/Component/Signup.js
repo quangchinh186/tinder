@@ -1,5 +1,5 @@
 import React, {useState} from 'react' 
-import data from './Test/users.json'
+import data from '../Test/users.json'
 
 function Signup() {
   const [account, setAccount] = useState({

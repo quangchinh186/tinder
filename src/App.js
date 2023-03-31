@@ -1,4 +1,4 @@
-import Preview from './Preview';
+import Preview from './Component/Preview';
 import './App.css';
 
 function App() {

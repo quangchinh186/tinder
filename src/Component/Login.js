@@ -1,11 +1,6 @@
 import React,{ useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { getUsers } from './Fetch.js';
-
-const admin = {
-  username : "admin",
-  password : "admin"
-}
+import { getUsers } from './Back/Fetch.js';
 
 function Login() {
   let navigate = useNavigate();

@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import Signup from './Signup';
-import Login from './Login';
-import Main from './Main'
-import { GetPass, Authorize} from './GetPass';
+import Signup from './Component/Signup';
+import Login from './Component/Login';
+import Main from './Component/Main'
+import { GetPass, Authorize} from './Component/GetPass';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 

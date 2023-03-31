@@ -59,11 +59,11 @@ async function main() {
 
   // Create test data set
   await User.collection.drop()
-  await addUser('test1', 'test1', 'test1', 69, 'Male', 'https://cdn2.cellphones.com.vn/358x/media/catalog/product/s/a/samsung-galaxy-a33-5g-600x600.jpg')
-  await addUser('test2', 'test2', 'test2', 68, 'Female', 'https://cdn2.cellphones.com.vn/358x/media/catalog/product/c/9/c91ba5bf721d5b2d4eae4f821b8e4ced.png')
-  await addUser('test3', 'test3', 'test3', 18, 'Male', 'https://cdn2.cellphones.com.vn/358x/media/catalog/product/s/2/s22_3_1.jpg')
-  await addUser('test4', 'test4', 'test4', 73, 'Female', 'https://cdn2.cellphones.com.vn/358x/media/catalog/product/t/_/t_i_xu_ng_2_18.png')
-  await addUser('test5', 'test5', 'test5', 70, 'Male', 'https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/s/a/samsung_galaxy_z_fold_4-7.jpg')
+  await addUser('test1', 'test1', 'test1', 69, 'Male', 'https://i.postimg.cc/t41WPqxG/IMG-20230315-084712.jpg')
+  await addUser('test2', 'test2', 'test2', 68, 'Female', 'https://i.postimg.cc/FH2cVMyd/IMG-20230307-131444.jpg')
+  await addUser('test3', 'test3', 'test3', 18, 'Male', 'https://i.postimg.cc/kMcQPhmz/IMG-20230124-215320.jpg')
+  await addUser('test4', 'test4', 'test4', 73, 'Female', 'https://i.postimg.cc/sxw7P1ms/IMG-20230124-215304.jpg')
+  await addUser('test5', 'test5', 'test5', 70, 'Male', 'https://i.postimg.cc/3wvjM88F/IMG-20230116-195946.jpg')
   var users = await User.find()
 
   // Create candidates list

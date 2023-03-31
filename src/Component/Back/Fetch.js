@@ -1,4 +1,4 @@
-function getUsers(filter, callback) {
+export function getUsers(filter, callback) {
   const fetchOptions = {
     method: "POST",
     headers: {
@@ -12,4 +12,12 @@ function getUsers(filter, callback) {
     .then(users => callback(users))
 }
 
-module.exports = { getUsers }
+export function addUser(user, callback){
+  const fetchOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  }
+}
