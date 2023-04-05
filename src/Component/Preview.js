@@ -1,5 +1,5 @@
 import React from 'react'
-import vid from './media/Background.mp4'
+import vid from '../Media/Background.mp4'
 import NavigationBar from './NavigationBar'
 
 function Preview() {

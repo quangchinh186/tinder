@@ -1,6 +1,6 @@
 import React,{ useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import data from './Test/users.json'
+import { getUsers } from './Back/Fetch.js';
 
 function Login() {
   let navigate = useNavigate();
@@ -17,11 +17,17 @@ function Login() {
   };
 
   const handleSubmit = (event) => {
-    let obj = data.find(o => o.username === account.username);
-    if(obj.password === account.password){
-      navigate('/m');
-    }
-    console.log('sai');
+    //request API here...
+    const usersFilter = { account: account }
+    getUsers(usersFilter, (users) => {
+      if (users.length === 0) {
+        window.alert("Wrong username or password!!1!")
+      } else {
+        localStorage.setItem('userId', users[0]._id);
+        console.log(users[0])
+        navigate('/m')
+      }
+    })
     event.preventDefault();
   };
 
@@ -42,7 +48,7 @@ function Login() {
               required/>
               <label>Username</label>
             </div>
-            
+
             <div className='txt_field'>
               <input 
               type='password'
