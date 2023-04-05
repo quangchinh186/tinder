@@ -1,7 +1,11 @@
 import { React, useState } from 'react'
 import ProfileCard from './ProfileCard'
+<<<<<<< Updated upstream:src/Main.js
 import ChatBox from './ChatBox';
 import { per } from './testData';
+=======
+import MenuBox from './MenuBox';
+>>>>>>> Stashed changes:src/Component/Main.js
 
 var match = [];
 
@@ -27,7 +31,7 @@ function Main() {
   
   return (
     <div className='main'>
-      <ChatBox/>
+      <MenuBox props={user}/>
       <div className='cardBox'>
         {curr.num <= 0 ? alert("hết") /*get more*/ : per.map(person => <ProfileCard key={person.id} person = {person} changeCur = {change} add = {addNew}/>)}
         <button className='no' onClick={handleNo}>✖</button>
