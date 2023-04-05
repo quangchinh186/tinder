@@ -1,10 +1,11 @@
-import { React, useState } from 'react'
+import { React, useRef, useState } from 'react'
 import ProfileCard from './ProfileCard'
 import MenuBox from './MenuBox';
 
 var match = [];
 
 function addNew(p) {
+  //adding this person id to p. candidates;
   match.push(p);
 }
 
@@ -18,21 +19,15 @@ function Main() {
       console.log(data)
   })
 
-  const [curr, setCurr] = useState(user[user.length - 1]._id)
-  const handleYes = () => {
-    
-  }
-  const handleNo = () => {
-    
-  }
+  const cardRef = useRef()
 
   return (
     <div className='main'>
-      <MenuBox props={user}/>
+      <MenuBox/>
       <div className='cardBox'>
-        {user.map(person => <ProfileCard key={person._id} person = {person} add = {addNew}/>)}
-        <button className='no' onClick={handleNo}>✖</button>
-        <button className='yes' onClick={handleYes}>❤</button>
+        {user.map(person => <ProfileCard key={person._id} person = {person} add = {addNew} ref={cardRef}/>)}
+        <button className='no' onClick={() => cardRef.current.goLeft()}>✖</button>
+        <button className='yes' onClick={() => cardRef.current.goRight()}>❤</button>
       </div>
     </div>
   )
