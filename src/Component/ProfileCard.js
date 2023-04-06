@@ -6,30 +6,35 @@ const ProfileCard = (props) => {
   const [opacity, setShow] = useState(1);
 
   const goLeft = () => {
-    setX(400);
+    setX(-400);
     setShow(0);
   }
   const goRight = () => {
-    setX(-400);
+    setX(400);
     setShow(0);
-    props.addNew(props.person);
+    props.add(props.person);
   }
-
+  let ur = 'url("' + props.person.imageURL + '")'
   return (
-    <motion.div className="Card" drag="x" dragSnapToOrigin={!props.person.seen} animate={{ x: x, opacity: opacity }}
-      onDragEnd={
-        (event, info) => {
-          if(info.offset.x > 70){
-            goRight();
-          }
-          else if(info.offset.x < -70){
-            goLeft();
-          }
-        }
-      }>
-      <div className="img-container">
-        <img src={props.person.imageURL} alt='avatar' width={200} height={200}/>
-      </div>
+    <motion.div className='card'
+                drag="x" 
+                dragSnapToOrigin={!props.person.seen} 
+                animate={{ x: x, opacity: opacity }}
+                onDragEnd={
+                  (event, info) => {
+                  if(info.offset.x > 70){
+                    goRight();
+                  }
+                  else if(info.offset.x < -70){
+                    goLeft();
+                  }
+                }}
+                style = {{
+                  backgroundImage : ur,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover"
+                }}
+      >
       <div className="card-body text-center">
         <h5 className="card-title">name: {props.person.displayName}, id: {props.person._id}</h5>
         <h4 className="card-text">age: {props.person.age}</h4>

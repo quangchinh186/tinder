@@ -1,6 +1,8 @@
 body{
   background-color: gray;
   margin: 0;
+  height: 100%; 
+  overflow: hidden;
 }
 
 .preview{
@@ -34,53 +36,91 @@ body{
 }
 
 
+/* MenuBox */
+.menuBox {
+  background-color: black;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+  rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  width: 25%;
+  text-align: left;
+  z-index: 1;
+}
 
+.menuBox .userInfo {
+  background-color: #fe3c72;
+  height: 70px;
+}
 
-/* chatBox */
+.menuBox .option {
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 20px;
+  margin: 2px;
+  padding: 10px;
+  outline: none;
+}
+
+.menuBox .option:focus {
+  border-bottom: solid 4px rgb(243, 33, 33);
+}
 
 /* main.js */
-.Card{
-  border-radius: 20px;
-  height: 80%;
-  width: 25%;
-  background-color: pink;
-  position:absolute;
-  text-align: center;
-  margin: auto;
-  top: 15%;
-  left: 35%;
+
+.main {
+  display: flex;
+  justify-content: space-between;
 }
-.imageShow{
-  height: 60%;
-  width: 70%;
-  border-radius: 10px;
+
+.main .swipe-container {
+  background-color: whitesmoke;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-.main button{
-  border-radius: 50%;
-  border-width: 5px;
-  border-color: #666666;
-  height: 60px;
-  width: 60px;
-  font-size: larger;
+
+.main .card-container {
+  width: 400px;
+  height: 650px;
+}
+
+.swipe{
   position: absolute;
 }
+
+.card {
+  position: absolute;
+  width: 400px;
+  height: 650px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+}
+
+
 .yes{
+  position: absolute;
   color: #ff85be;
   top: 85%;
   left: 50%;
 }
 .no{
+  position: absolute;
   color: aquamarine;
   top: 85%;
   left: 40%;
 }
 .yes:hover {
-  background-color: #C74A78;
+  background-color: #ff85be;
   color: white;
 }
 .no:hover {
   color: white;
-  background-color:greenyellow;
+  background-color:aquamarine;
 }
 
 /* login and signup */
