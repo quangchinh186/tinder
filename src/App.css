@@ -1,4 +1,5 @@
 body{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   background-color: gray;
   margin: 0;
   height: 100%; 
@@ -84,8 +85,9 @@ body{
 }
 
 .main .card-container {
-  width: 400px;
+  width: 350px;
   height: 650px;
+  
 }
 
 .swipe{
@@ -93,34 +95,36 @@ body{
 }
 
 .card {
+  color: white;
   position: absolute;
-  width: 400px;
-  height: 650px;
-  border-radius: 10px;
+  width: 350px;
+  height: 600px;
+  border-radius: 10px 10px 0 0;
   background-size: cover;
   background-position: center;
 }
 
+.card-body-text{
+  display: flex;
+  margin-right: 20px;
+}
 
-.yes{
-  position: absolute;
-  color: #ff85be;
-  top: 85%;
-  left: 50%;
+.current-image{
+  display: flex;
+  justify-content: space-between;
 }
-.no{
-  position: absolute;
-  color: aquamarine;
-  top: 85%;
-  left: 40%;
-}
-.yes:hover {
-  background-color: #ff85be;
+
+.current-image button{
   color: white;
+  border: none;
+  background-color: transparent;
+  font-size: 40px;
+  height: 500px;
+  width: 30px;
 }
-.no:hover {
-  color: white;
-  background-color:aquamarine;
+
+.current-image button:hover{
+  color: black;
 }
 
 /* login and signup */
@@ -270,4 +274,41 @@ nav ul li a:hover{
   border-radius: 5px;
   background-color: white;
   color: black;
+}
+
+/*Create Profle*/
+.create-page{
+  margin : 5vh 0 0  20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-preview{
+  margin-right: 50px;
+  width: 350px;
+  height: 600px;
+  border-radius: 10px 10px 0 0;
+  background-size: cover;
+  background-position: center;
+}
+
+input[type="file"] {
+  display: none;
+}
+.image-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.profile {
+  font-family: cursive;
+  top: 50%;
+  left: 30%;
+  width: 50%;
+  height: 90vh;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
 }

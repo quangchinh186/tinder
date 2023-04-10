@@ -8,26 +8,23 @@ function addNew(like) {
 }
 
 function Main() {
-  const [user, setUser] = useState([]);
+  const [candidates, setCandidates] = useState([]);
   useEffect(() => {
     //viet api lay users o day
     var fetchPromise = fetch("http://localhost:3001/", { method: "GET" })
     fetchPromise
     .then(res => res.json())
     .then(data => {
-      setUser(data);
+      setCandidates(data);
     })
   },[])
-  console.log(user)
 
   return (
     <div className='main'>
       <MenuBox/>
       <div className='swipe-container'>
         <div className='card-container'>
-          {user.map(person => <ProfileCard key={person._id} person = {person} add = {addNew}/>)}
-          <button className='no' >✖</button>
-          <button className='yes'>❤</button>
+          {candidates.map(person => <ProfileCard key={person._id} user = {person} add = {addNew}/>)}
         </div>
       </div>
     </div>

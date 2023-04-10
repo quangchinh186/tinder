@@ -1,24 +1,29 @@
-import { React, useState } from 'react'
+import { React, useEffect, useState } from 'react'
 import { motion } from "framer-motion";
 
 const ProfileCard = (props) => {
   const [x, setX] = useState(0);
   const [opacity, setShow] = useState(1);
-
+  const [imageId, setImageId] = useState(0);
+  const [url, setUrl] = useState('url("' + props.user.imageURL[imageId] + '")')
+  //handle swiping card
   const goLeft = () => {
-    setX(-400);
+    setX(-1000);
     setShow(0);
   }
   const goRight = () => {
-    setX(400);
+    setX(1000);
     setShow(0);
-    props.add(props.person);
   }
-  let ur = 'url("' + props.person.imageURL + '")'
+  //handle current display image
+  useEffect(() => {
+    setUrl('url("' + props.user.imageURL[imageId] + '")');
+  },[props.user.imageURL, imageId])
+  
   return (
     <motion.div className='card'
                 drag="x" 
-                dragSnapToOrigin={!props.person.seen} 
+                dragSnapToOrigin={!props.user.seen} 
                 animate={{ x: x, opacity: opacity }}
                 onDragEnd={
                   (event, info) => {
@@ -30,15 +35,18 @@ const ProfileCard = (props) => {
                   }
                 }}
                 style = {{
-                  backgroundImage : ur,
+                  backgroundImage : url,
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover"
                 }}
       >
-      <div className="card-body text-center">
-        <h5 className="card-title">name: {props.person.displayName}, id: {props.person._id}</h5>
-        <h4 className="card-text">age: {props.person.age}</h4>
-        <p className="card-text">desc</p>
+      <div className='current-image'>
+          <button className='prev' onClick={() => setImageId(Math.max(imageId-1, 0))}>{'<'}</button>
+          <button className='next' onClick={() => setImageId(Math.min(imageId+1, 4))}>{'>'}</button>
+      </div>
+      <div className="card-body-text">
+        <h1>{props.user.displayName}</h1>
+        <h1>{props.user.age}</h1>
       </div>
     </motion.div>
   )

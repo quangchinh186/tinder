@@ -16,8 +16,7 @@ function Signup() {
   };
 
   const handleSubmit = (event) => {
-    //request API here...
-    data.push(account);
+    //request API here..
     console.log(data)
     event.preventDefault();
   };
