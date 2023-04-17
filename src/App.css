@@ -1,6 +1,6 @@
 body{
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  background-color: gray;
+  background-color: bisque;
   margin: 0;
   height: 100%; 
   overflow: hidden;
@@ -105,8 +105,13 @@ body{
 }
 
 .card-body-text{
+  background-color: black;
+  color: white;
+  border: none;
   display: flex;
-  margin-right: 20px;
+  justify-content: space-between;
+  height: 100px;
+  padding: 10px;
 }
 
 .current-image{
@@ -290,6 +295,7 @@ nav ul li a:hover{
   border-radius: 10px 10px 0 0;
   background-size: cover;
   background-position: center;
+  background-color: white;
 }
 
 input[type="file"] {
@@ -303,6 +309,7 @@ input[type="file"] {
 }
 
 .profile {
+  text-align: center;
   font-family: cursive;
   top: 50%;
   left: 30%;

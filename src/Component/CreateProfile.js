@@ -1,4 +1,20 @@
 import { React, useState } from 'react'
+import Select from 'react-select';
+
+const hobbies = [
+  { value: 'Anime', label: 'Anime' },
+  { value: 'Manga', label: 'Manga' },
+  { value: 'Music', label: 'Music' },
+  { value: 'Movies', label: 'Movies'},
+  { value: 'Board Game', label: 'Board Game'},
+  { value: 'Books', label: 'Books'},
+  { value: 'Chess', label: 'Chess'},
+  { value: 'Cooking', label: 'Cooking'},
+  { value: 'Sports', label: 'Sports'},
+  { value: 'Dance', label: 'Dance'},
+  { value: 'Coding', label: 'Coding'},
+  { value: 'Travel', label: 'Travel'}
+]
 
 function CreateProfile() {
   const [info, setInfo] = useState({
@@ -7,8 +23,10 @@ function CreateProfile() {
     gender : '',
     lookingFor : '',
     hobby : [],
-    image : []
+    photo: []
   })
+
+  const [hobby, setHobby] = useState(null);
 
   const [sample, setSample] = useState('');
 
@@ -22,10 +40,17 @@ function CreateProfile() {
       ...info,
       [event.target.name]: event.target.value,
     })
+    console.log(info);
   }
 
-  const handleSubmit = () => {
-
+  const handleSubmit = (event) => {
+    setInfo({
+      ...info,
+      hobby: hobby,
+      photo: sample
+    })
+    console.log(info);
+    event.preventDefault();
   }
 
   return (
@@ -33,85 +58,80 @@ function CreateProfile() {
     <div className='profile'>
       <h1>YOUR PROFILE</h1>
       <form className='user-profile'>
-        <div className=''>
-          <label>Your Name</label>
+        <div className='txt_field'>
           <input 
           type='text' 
           name='displayName'
           value={info.displayName}
           onChange={handleChange}
           required/>
+          <label>Your Name</label>
         </div>
 
-        <div className=''>
-          <label>Age</label>
+        <div className='txt_field'>
           <input 
             type='text'
             name='age'
             value={info.age}
             onChange={handleChange}
             required/>
+            <label>Age</label>
         </div>
 
         <div className='gender'>
           <h3>gender : </h3>
           <input
             type='radio'
-            id='male'
-            name='radio'
+            value='Male'
+            name='gender'
+            onChange={handleChange}
           />
-          <label htmlFor='male'>Male</label>
+          <label>Male</label>
           <input
             type='radio'
-            id='female'
-            name='radio'
+            value='Female'
+            name='gender'
+            onChange={handleChange}
           />
-          <label htmlFor='female'>Female</label>
+          <label>Female</label>
         </div>
 
-        <div className='favor'>
+        <div className='interest'>
           <h3>Interest in : </h3>
           <input
             type='radio'
-            id='male'
-            name='radio-1'
+            value='Male'
+            name='lookingFor'
+            onChange={handleChange}
           />
-          <label htmlFor='male'>Male</label>
+          <label>Male</label>
+          
           <input
             type='radio'
-            id='female'
-            name='radio-1'
+            value='Female'
+            name='lookingFor'
+            onChange={handleChange}
           />
-          <label htmlFor='female'>Female</label>
+          <label>Female</label>
+          
+        </div>
+
+        <div className='hobby'>
+          <Select
+          placeholder='Hobby'
+          defaultValue={hobby}
+          onChange={setHobby}
+          isMulti
+          name="hobby"
+          options={hobbies}
+          className="basic-multi-select"
+          
+          />
         </div>
 
         <div className='image-holder'>
-          <label htmlFor="file-upload" className="image-upload">+</label>
+          <label htmlFor="file-upload" className="image-upload">Add photo+</label>
           <input id="file-upload" type="file" onChange={handleAvatar}/>
-
-          <label htmlFor="file-upload" className="image-upload">+</label>
-          <input id="file-upload" type="file"/>
-
-          <label htmlFor="file-upload" className="image-upload">+</label>
-          <input id="file-upload" type="file"/>
-
-          <label htmlFor="file-upload" className="image-upload">+</label>
-          <input id="file-upload" type="file"/>
-
-          <label htmlFor="file-upload" className="image-upload">+</label>
-          <input id="file-upload" type="file"/>
-
-          <label htmlFor="file-upload" className="image-upload">+</label>
-          <input id="file-upload" type="file"/>
-
-          <label htmlFor="file-upload" className="image-upload">+</label>
-          <input id="file-upload" type="file"/>
-
-          <label htmlFor="file-upload" className="image-upload">+</label>
-          <input id="file-upload" type="file"/>
-
-          <label htmlFor="file-upload" className="image-upload">+</label>
-          <input id="file-upload" type="file"/>          
         </div>
 
         <button className='regist' type='submit' onClick={handleSubmit}>Get Start</button>
@@ -122,7 +142,8 @@ function CreateProfile() {
       style = {{
         backgroundImage : `url("${sample}")`,
         backgroundRepeat: "no-repeat",
-        backgroundSize: "cover"
+        backgroundSize: "cover",
+        
       }}>
       <div className='current-image'>
           <button className='prev' >{'<'}</button>

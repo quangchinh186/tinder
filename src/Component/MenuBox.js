@@ -11,7 +11,7 @@ function MenuBox() {
             Current Username
           </div>
           <div>
-              <button className="option" onClick={() => setTab('matches')} autoFocus>Matches</button>
+              <button className="option" onClick={() => setTab('matches')}>Matches</button>
               <button className="option" onClick={() => setTab('chat')}>Chat</button>
           </div>
           {tab === 'matches' ? <MatchesBox/> : <ChatBox/>}
