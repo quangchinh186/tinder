@@ -1,5 +1,6 @@
-import React, {useState} from 'react' 
+import React, {useState} from 'react'
 import data from '../Test/users.json'
+import {addUser} from './Back/Fetch';
 
 function Signup() {
   const [account, setAccount] = useState({
@@ -7,6 +8,8 @@ function Signup() {
     password:"",
     email:""
   })
+
+  const [passwdRepeat, setPasswdRepeat] = useState("")
 
   const handleChange = (event) => {
     setAccount({
@@ -16,9 +19,17 @@ function Signup() {
   };
 
   const handleSubmit = (event) => {
-    //request API here..
-    console.log(data)
-    event.preventDefault();
+    if (account.password !== passwdRepeat) {
+      window.alert("Different passwords!!1!")
+    } else {
+      console.log(account)
+      addUser(account, (result) => {
+        if (result !== '') {
+          window.alert(result)
+        }
+      })
+      event.preventDefault();
+    }
   };
 
     return (
@@ -51,7 +62,15 @@ function Signup() {
                 </div>
 
                 <div className='txt_field'>
-                  <input type='password' required/>
+                  <input
+                    type='password'
+                    name='passwdRepeat'
+                    value={passwdRepeat}
+                    onChange={(event) => {
+                      setPasswdRepeat(event.target.value)
+                    }}
+                    required
+                  />
                   <label>Retype password</label>
                 </div>
 

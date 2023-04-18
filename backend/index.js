@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema({
   account: {
     username: String,
     password: String,
+    email: String,
   },
   displayName: String,
   age: Number,
@@ -39,17 +40,43 @@ function getUsers(req, res) {
 }
 app.post("/getUsers", getUsers);
 
+function addUser(req, res) {
+  User.find({"account.username": req.body.username})
+    .then(users => {
+      if (users.length !== 0) {
+        res.json("Username taken!!1!")
+      } else {
+        const user = new User({
+          account: {
+            username: req.body.username,
+            password: req.body.password,
+            email: req.body.email,
+          },
+          displayName: '',
+          age: '',
+          gender: '',
+          imageURL: '',
+          candidatesId: [],
+          potentialMatchesId: [],
+        });
+        res.json(user.save());
+      }
+    })
+}
+app.post("/addUser", addUser);
+
 main().then(users => {
   app.get('/', (req, res) => {
     res.json(users);
   })
 })
 
-async function addUser(username, password, name, age, gender) {
+async function addUserDebug(username, password, email, name, age, gender) {
   const test1 = new User({
     account: {
       username: username,
       password: password,
+      email: email,
     },
     displayName: name,
     age: age,
@@ -66,11 +93,11 @@ async function main() {
 
   // Create test data set
   await User.collection.drop()
-  await addUser('test1', 'test1', 'test1', 69, 'Male')
-  await addUser('test2', 'test2', 'test2', 68, 'Female')
-  await addUser('test3', 'test3', 'test3', 18, 'Male')
-  await addUser('test4', 'test4', 'test4', 73, 'Female')
-  await addUser('test5', 'test5', 'test5', 70, 'Male')
+  await addUserDebug('test1', 'test1', 'test1', 'test1', 69, 'Male')
+  await addUserDebug('test2', 'test2', 'test2', 'test2', 68, 'Female')
+  await addUserDebug('test3', 'test3', 'test3', 'test3', 18, 'Male')
+  await addUserDebug('test4', 'test4', 'test4', 'test4', 73, 'Female')
+  await addUserDebug('test5', 'test5', 'test5', 'test5', 70, 'Male')
   var users = await User.find()
 
   // Create candidates list
