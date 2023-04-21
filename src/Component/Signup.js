@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
 import data from '../Test/users.json'
 import {addUser} from './Back/Fetch';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
+  let navigate = useNavigate()
   const [account, setAccount] = useState({
     username:"",
     password:"",
@@ -24,8 +26,11 @@ function Signup() {
     } else {
       console.log(account)
       addUser(account, (result) => {
-        if (result !== '') {
+        if (result === 'Username taken!!1!') {
           window.alert(result)
+        } else {
+          localStorage.setItem('userId', result);
+          navigate("/signup/newProfile")
         }
       })
       event.preventDefault();

@@ -59,7 +59,8 @@ function addUser(req, res) {
           candidatesId: [],
           potentialMatchesId: [],
         });
-        res.json(user.save());
+        user.save();
+        res.json(user._id);
       }
     })
 }
