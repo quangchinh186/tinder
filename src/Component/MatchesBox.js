@@ -5,12 +5,12 @@ const MatchesBox = () => {
   const handleClick = () => {
     console.log('choosed user');
   }
-  console.log(user.Matched);
+  console.log(user.matched);
 
   return (
     <div className='matched-box'>
       {
-        user.Matched.map(user => {
+        user.matched.map(user => {
           return (
            <button className='user' 
             onClick={handleClick}

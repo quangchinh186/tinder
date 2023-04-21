@@ -18,12 +18,13 @@ function Login() {
 
   const handleSubmit = (event) => {
     //request API here...
-    const usersFilter = { account: account }
+    const usersFilter = { 'account.username': account.username, 'account.password': account.password }
     getUsers(usersFilter, (users) => {
       if (users.length === 0) {
         window.alert("Wrong username or password!!1!")
       } else {
         localStorage.setItem('userId', users[0]._id);
+        sessionStorage.setItem('user', JSON.stringify(users[0]));
         console.log(users[0])
         navigate('/m')
       }

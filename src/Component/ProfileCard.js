@@ -2,11 +2,11 @@ import { React, useEffect, useState } from 'react'
 import { motion } from "framer-motion";
 
 const ProfileCard = (props) => {
-  const numberOfPhotos = props.user.photos.length - 1;
+  const numberOfPhotos = props.user.profile.photos.length - 1;
   const [x, setX] = useState(0);
   const [opacity, setShow] = useState(1);
   const [imageId, setImageId] = useState(0);
-  const [url, setUrl] = useState('url("' + props.user.photos[imageId] + '")')
+  const [url, setUrl] = useState('url("' + props.user.profile.photos[imageId] + '")')
   //handle swiping card
   const goLeft = () => {
     setX(-1000);
@@ -18,8 +18,8 @@ const ProfileCard = (props) => {
   }
   //handle current display image
   useEffect(() => {
-    setUrl('url("' + props.user.photos[imageId] + '")');
-  },[props.user.photos, imageId])
+    setUrl('url("' + props.user.profile.photos[imageId] + '")');
+  },[props.user.profile.photos, imageId])
   
   return (
     <motion.div className='card'
@@ -46,8 +46,8 @@ const ProfileCard = (props) => {
           <button className='next' onClick={() => setImageId(Math.min(imageId+1, numberOfPhotos))}>{'>'}</button>
       </div>
       <div className="card-body-text">
-        <h1>{props.user.displayName}</h1>
-        <h1>{props.user.age}</h1>
+        <h1>{props.user.profile.displayName}</h1>
+        <h1>{props.user.profile.age}</h1>
       </div>
     </motion.div>
   )

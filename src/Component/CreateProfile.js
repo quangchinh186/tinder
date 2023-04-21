@@ -1,5 +1,6 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import Select from 'react-select';
+import {editProfile, getUsers} from './Back/Fetch';
 
 const hobbies = [
   { value: 'Anime', label: 'Anime' },
@@ -16,19 +17,34 @@ const hobbies = [
   { value: 'Travel', label: 'Travel'}
 ]
 
-function CreateProfile() {
+function EditProfile() {
   const [info, setInfo] = useState({
     displayName : '',
     age : '',
     gender : '',
-    lookingFor : '',
-    hobby : [],
-    photo: []
+    genderInterest : '',
+    photos: [],
   })
-
   const [hobby, setHobby] = useState(null);
-
   const [sample, setSample] = useState('');
+
+  useEffect(() => {
+    const filter = { _id: localStorage.getItem('userId') }
+    getUsers(filter , (result) => {
+      if (result.length === 0) return
+      let user = result[0]
+      let newInfo = {
+        displayName: user.profile.displayName,
+        age: user.profile.age,
+        gender: user.profile.gender,
+        genderInterest: user.profile.genderInterest,
+        photos: user.profile.photos,
+      }
+      console.log(user)
+      console.log(newInfo)
+      setInfo(newInfo)
+    })
+  }, [])
 
   const handleAvatar = (event) => {
     const file = event.target.files[0];
@@ -47,9 +63,11 @@ function CreateProfile() {
     setInfo({
       ...info,
       hobby: hobby,
-      photo: sample
+      photos: sample
     })
+
     console.log(info);
+    editProfile(localStorage.getItem('userId'), info, (result) => console.log(result))
     event.preventDefault();
   }
 
@@ -72,14 +90,14 @@ function CreateProfile() {
           <input 
             type='text'
             name='age'
-            value={info.age}
+            value={info.age === null ? '' : info.age}
             onChange={handleChange}
             required/>
             <label>Age</label>
         </div>
 
         <div className='gender'>
-          <h3>gender : </h3>
+          <h3>Gender : </h3>
           <input
             type='radio'
             value='Male'
@@ -101,7 +119,7 @@ function CreateProfile() {
           <input
             type='radio'
             value='Male'
-            name='lookingFor'
+            name='genderInterest'
             onChange={handleChange}
           />
           <label>Male</label>
@@ -109,7 +127,7 @@ function CreateProfile() {
           <input
             type='radio'
             value='Female'
-            name='lookingFor'
+            name='genderInterest'
             onChange={handleChange}
           />
           <label>Female</label>
@@ -158,4 +176,4 @@ function CreateProfile() {
   )
 }
 
-export default CreateProfile
+export default EditProfile

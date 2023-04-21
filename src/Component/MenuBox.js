@@ -14,8 +14,8 @@ function MenuBox() {
         <div className="menuBox">
           <div className='userInfo'>
             <button className='userIcon' onClick={showProfile}>
-              <img src={user.photos[0]} className='avatar' alt='icon'/>
-              {user.displayName}
+              <img src={user.profile.photos[0]} className='avatar' alt='icon'/>
+              {user.profile.displayName}
             </button>
           </div>
           <div>

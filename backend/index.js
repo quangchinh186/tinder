@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 mongoose.connect('mongodb+srv://quangchinh1122:chinh2003@uetinder.bmmhsoe.mongodb.net/uetinder-data?retryWrites=true&w=majority')
   .then(() => {
     app.listen(3001)
-    console.log("connected to mongoDB Atlas")
+    console.log("Connected to MongoDB Atlas")
   })
 
 const userSchema = mongoose.Schema({
@@ -42,18 +42,18 @@ function getUsers(req, res) {
 app.post("/getUsers", getUsers);
 
 function addUser(req, res) {
-  usersCollection.find({"account.username": req.body.account.username})
+  usersCollection.find({"account.username": req.body.username})
     .then(users => {
       if (users.length !== 0) {
-        res.json(`Username is taken!!!`)
+        res.json('Username is taken!!!')
       } else {
         const newUser = new usersCollection({
-          displayName: req.body.displayName,
           account: {
             username: req.body.username,
             password: req.body.password,
             email: req.body.email,
           },
+          displayName: '',
           age: '',
           gender: '',
           genderInterest: '',
@@ -69,6 +69,13 @@ function addUser(req, res) {
 }
 app.post("/addUser", addUser);
 
+function editProfile(req, res) {
+  let userID = req.body.id
+  usersCollection.updateOne({_id: userID}, req.body.profile)
+    .then((result) => console.log(result))
+}
+app.post("/editProfile", editProfile);
+
 usersCollection.watch()
   .on('change', () => {
     update();
@@ -83,5 +90,3 @@ async function update() {
     res.json(users);
   })
 }
-
-
