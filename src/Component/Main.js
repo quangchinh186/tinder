@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import ProfileCard from './ProfileCard'
 import MenuBox from './MenuBox';
 
@@ -8,6 +9,10 @@ function addNew(like) {
 }
 
 function Main() {
+  let navigate = useNavigate();
+  if(!sessionStorage.user){
+    navigate('/login');
+  }
   const [candidates, setCandidates] = useState([]);
   useEffect(() => {
     //viet api lay users o day

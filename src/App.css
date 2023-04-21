@@ -51,6 +51,27 @@ body{
 .menuBox .userInfo {
   background-color: #fe3c72;
   height: 70px;
+  font-size: 20px;
+}
+
+.userIcon {
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 20px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 20px;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+
+
+.menuBox .avatar{
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .menuBox .option {
@@ -63,7 +84,14 @@ body{
   outline: none;
 }
 
-.menuBox .option:focus {
+.menuBox .option-selected {
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 20px;
+  margin: 2px;
+  padding: 10px;
+  outline: none;
   border-bottom: solid 4px rgb(243, 33, 33);
 }
 

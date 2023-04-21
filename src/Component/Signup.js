@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import data from '../Test/users.json'
-import {addUser} from './Back/Fetch';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
+  let navigate = useNavigate();
   const [account, setAccount] = useState({
     username:"",
     password:"",
@@ -20,14 +20,10 @@ function Signup() {
 
   const handleSubmit = (event) => {
     if (account.password !== passwdRepeat) {
-      window.alert("Different passwords!!1!")
+      window.alert("Different passwords!!!")
     } else {
-      console.log(account)
-      addUser(account, (result) => {
-        if (result !== '') {
-          window.alert(result)
-        }
-      })
+      sessionStorage.setItem('newUser', JSON.stringify(account));
+      navigate("/signup/newProfile");
       event.preventDefault();
     }
   };

@@ -1,5 +1,9 @@
-import { React, useState } from 'react'
+import { React, useEffect, useState } from 'react'
 import Select from 'react-select';
+import {addUser, getUsers} from './Back/Fetch';
+import { useNavigate } from 'react-router-dom';
+
+const blankAva = 'https://i.postimg.cc/Ssgg8MYS/download.jpg';
 
 const hobbies = [
   { value: 'Anime', label: 'Anime' },
@@ -16,19 +20,34 @@ const hobbies = [
   { value: 'Travel', label: 'Travel'}
 ]
 
-function CreateProfile() {
+const CreateProfile = () => {
+  let navigate = useNavigate();
+  var account;
   const [info, setInfo] = useState({
+    account: {},
     displayName : '',
-    age : '',
+    age : 0,
     gender : '',
-    lookingFor : '',
+    genderInterest : '',
     hobby : [],
-    photo: []
+    photos: []
   })
 
-  const [hobby, setHobby] = useState(null);
+  useEffect(() => {
+    if(sessionStorage.user){
+      account = JSON.parse(sessionStorage.user)
+      setInfo(account)
+    } else {
+      account = JSON.parse(sessionStorage.newUser);
+      setInfo({
+        account: account,
+        ...info
+      })
+    }
+  },[])
 
-  const [sample, setSample] = useState('');
+  const [hobby, setHobby] = useState(null);
+  const [sample, setSample] = useState(blankAva);
 
   const handleAvatar = (event) => {
     const file = event.target.files[0];
@@ -40,23 +59,33 @@ function CreateProfile() {
       ...info,
       [event.target.name]: event.target.value,
     })
-    console.log(info);
   }
 
   const handleSubmit = (event) => {
     setInfo({
       ...info,
       hobby: hobby,
-      photo: sample
+      photos: sample
+    })
+    addUser(info, (result) => {
+      if (result !== '') {
+        window.alert(result)
+      }
     })
     console.log(info);
+    const usersFilter = { account: account }
+    getUsers(usersFilter, (users) => {
+      sessionStorage.setItem('user', JSON.stringify(users[0]));
+    })
+    navigate('/m')
     event.preventDefault();
   }
+  console.log(info);
 
   return (
   <div className='create-page'>
     <div className='profile'>
-      <h1>YOUR PROFILE</h1>
+      <h1>{info.displayName} PROFILE</h1>
       <form className='user-profile'>
         <div className='txt_field'>
           <input 
@@ -101,7 +130,7 @@ function CreateProfile() {
           <input
             type='radio'
             value='Male'
-            name='lookingFor'
+            name='genderInterest'
             onChange={handleChange}
           />
           <label>Male</label>
@@ -109,7 +138,7 @@ function CreateProfile() {
           <input
             type='radio'
             value='Female'
-            name='lookingFor'
+            name='genderInterest'
             onChange={handleChange}
           />
           <label>Female</label>

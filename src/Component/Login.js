@@ -23,8 +23,7 @@ function Login() {
       if (users.length === 0) {
         window.alert("Wrong username or password!!1!")
       } else {
-        localStorage.setItem('userId', users[0]._id);
-        console.log(users[0])
+        sessionStorage.setItem('user', JSON.stringify(users[0]));
         navigate('/m')
       }
     })
