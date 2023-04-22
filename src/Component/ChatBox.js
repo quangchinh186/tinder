@@ -1,9 +1,9 @@
 import React from 'react'
 
-function ChatBox() {
+const ChatBox = (props) => {
   return (
     <div className='chatBox'>
-        ChatBox
+        Chat with {props.chatW}
     </div>
   )
 }

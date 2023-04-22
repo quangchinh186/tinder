@@ -1,23 +1,41 @@
-import React from 'react'
+import { React, useState, useEffect } from 'react'
+import {getUsers} from './Back/Fetch'
 
-const MatchesBox = () => {
-  const user = JSON.parse(sessionStorage.user);
-  const handleClick = () => {
+const MatchesBox = (props) => {
+  const mat = (JSON.parse(sessionStorage.user)).Matched;
+  const [matched, setMatched] = useState([])
+
+  useEffect(() => {
+    const usersFilter = { _id: mat }
+    getUsers(usersFilter, (users) => {
+      setMatched(users);
+    })
+  })
+
+  const handleClick = (e) => {
     console.log('choosed user');
+    console.log(e.target.name);
+    props.setChatW(e.target.name)
+    props.setTab('chat')
   }
-  console.log(user.Matched);
 
   return (
     <div className='matched-box'>
       {
-        user.Matched.map(user => {
-          return (
-           <button className='user' 
+        matched.map(m => {
+          return(
+            <button key={m._id} 
+            name={m.displayName} 
             onClick={handleClick}
-            key={user}>
-
-          </button>
-            )
+            style = {{
+              backgroundImage : `url("${m.photos[0]}")`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              
+            }}>
+              {m.displayName}
+            </button>
+          )
         })
       }
     </div>

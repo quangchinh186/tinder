@@ -1,7 +1,8 @@
 import { React, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import ProfileCard from './ProfileCard'
 import MenuBox from './MenuBox';
+import Login from './Login'
+import { getUsers } from './Back/Fetch';
 
 function addNew(like) {
   //them minh vao array candidates cua "like"
@@ -9,21 +10,19 @@ function addNew(like) {
 }
 
 function Main() {
-  let navigate = useNavigate();
-  if(!sessionStorage.user){
-    navigate('/login');
-  }
   const [candidates, setCandidates] = useState([]);
+  
   useEffect(() => {
-    //viet api lay users o day
-    var fetchPromise = fetch("http://localhost:3001/", { method: "GET" })
-    fetchPromise
-    .then(res => res.json())
-    .then(data => {
-      setCandidates(data);
+    const usersFilter = {}
+    getUsers(usersFilter, (users) => {
+      setCandidates(users);
     })
-  },[])
+  })
 
+
+  if(!sessionStorage.user){
+    return <Login/>
+  }
   return (
     <div className='main'>
       <MenuBox/>

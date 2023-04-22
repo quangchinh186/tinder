@@ -2,6 +2,7 @@ import { React, useEffect, useState } from 'react'
 import Select from 'react-select';
 import {addUser, getUsers} from './Back/Fetch';
 import { useNavigate } from 'react-router-dom';
+import Signup from './Signup'
 
 const blankAva = 'https://i.postimg.cc/Ssgg8MYS/download.jpg';
 
@@ -22,7 +23,7 @@ const hobbies = [
 
 const CreateProfile = () => {
   let navigate = useNavigate();
-  var account;
+  let account;
   const [info, setInfo] = useState({
     account: {},
     displayName : '',
@@ -37,7 +38,8 @@ const CreateProfile = () => {
     if(sessionStorage.user){
       account = JSON.parse(sessionStorage.user)
       setInfo(account)
-    } else {
+    } 
+    if(sessionStorage.newUser) {
       account = JSON.parse(sessionStorage.newUser);
       setInfo({
         account: account,
@@ -81,6 +83,9 @@ const CreateProfile = () => {
     event.preventDefault();
   }
   console.log(info);
+  if(!sessionStorage.length){
+    return <Signup/>
+  }
 
   return (
   <div className='create-page'>

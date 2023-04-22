@@ -347,3 +347,22 @@ input[type="file"] {
   border-radius: 10px;
   box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
 }
+
+/* matched-box */
+.matched-box{
+  display: flex;
+}
+
+.matched-box button {
+  margin: 5px 5px 5px 5px;
+  width: 30%;
+  height: 100px;
+  border-radius: 10px;
+  border: none;
+  color: transparent;
+}
+
+.matched-box button:hover{
+  color: black;
+  filter: brightness(60%);
+}

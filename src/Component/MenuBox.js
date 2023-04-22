@@ -7,6 +7,7 @@ function MenuBox() {
   let navigate = useNavigate();
   const user = JSON.parse(sessionStorage.user);
   const [tab, setTab] = useState('matches')
+  const [chatW, setChatW] = useState('');
   const showProfile = () => {
     navigate('/signup/newProfile');
   }
@@ -26,7 +27,7 @@ function MenuBox() {
                 Chat
               </button>
           </div>
-          {tab === 'matches' ? <MatchesBox/> : <ChatBox/>}
+          {tab === 'matches' ? <MatchesBox setTab={setTab} setChatW={setChatW}/> : <ChatBox chatW={chatW}/>}
         </div>
     )
 }
