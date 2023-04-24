@@ -31,7 +31,6 @@ const MatchesBox = (props) => {
               backgroundImage : `url("${m.photos[0]}")`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
-              
             }}>
               {m.displayName}
             </button>

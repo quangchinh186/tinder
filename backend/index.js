@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 mongoose.connect('mongodb+srv://quangchinh1122:chinh2003@uetinder.bmmhsoe.mongodb.net/uetinder-data?retryWrites=true&w=majority')
   .then(() => {
     app.listen(3001)
-    console.log("connected to mongoDB Atlas")
+    console.log("Connected to MongoDB Atlas")
   })
 
 const userSchema = mongoose.Schema({
@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema({
   gender: String,
   genderInterest: String,
   photos: [String],
-  Matched: [String],
+  matched: [String],
   hobby: [String],
   potentialUser: [String],
 });
@@ -42,31 +42,39 @@ function getUsers(req, res) {
 app.post("/getUsers", getUsers);
 
 function addUser(req, res) {
-  usersCollection.find({"account.username": req.body.account.username})
+  usersCollection.find({"account.username": req.body.username})
     .then(users => {
       if (users.length !== 0) {
-        res.json(`Username is taken!!!`)
+        res.json('Username is taken!!!')
       } else {
         const newUser = new usersCollection({
-          displayName: req.body.displayName,
           account: {
-            username: req.body.account.username,
-            password: req.body.account.password,
+            username: req.body.username,
+            password: req.body.password,
+            email: req.body.email,
           },
-          email: req.body.account.email,
-          age: req.body.age,
-          gender: req.body.age,
-          photos: req.body.photos,
-          Matched: [],
+          displayName: '',
+          age: '',
+          gender: '',
+          genderInterest: '',
+          photos: [],
+          matched: [],
+          hobby: [],
           potentialUser: [],
-          hobby: req.body.hobby
         });
-        res.json(newUser.save());
+        newUser.save();
+        res.json(newUser._id);
       }
     })
-  
 }
 app.post("/addUser", addUser);
+
+function editProfile(req, res) {
+  let userID = req.body.id
+  usersCollection.updateOne({_id: userID}, req.body.profile)
+    .then((result) => console.log(result))
+}
+app.post("/editProfile", editProfile);
 
 usersCollection.watch()
   .on('change', () => {
@@ -82,5 +90,3 @@ async function update() {
     res.json(users);
   })
 }
-
-

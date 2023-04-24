@@ -25,3 +25,20 @@ export function addUser(account, callback) {
     .then(res => res.json())
     .then(result => callback(result))
 }
+
+export function editProfile(userId, profile, callback) {
+  const fetchOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: userId,
+      profile: profile,
+    }),
+  }
+
+  fetch("http://localhost:3001/editProfile", fetchOptions)
+    .then(res => res.json())
+    .then(result => callback(result))
+}

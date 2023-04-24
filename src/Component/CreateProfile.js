@@ -1,8 +1,7 @@
-import { React, useEffect, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import Select from 'react-select';
 import {addUser, getUsers} from './Back/Fetch';
 import { useNavigate } from 'react-router-dom';
-import Signup from './Signup'
 
 const blankAva = 'https://i.postimg.cc/Ssgg8MYS/download.jpg';
 
@@ -23,23 +22,22 @@ const hobbies = [
 
 const CreateProfile = () => {
   let navigate = useNavigate();
-  let account;
+  var account;
   const [info, setInfo] = useState({
-    account: {},
     displayName : '',
-    age : 0,
+    age : '',
     gender : '',
     genderInterest : '',
-    hobby : [],
-    photos: []
+    photos: [],
   })
+  const [hobby, setHobby] = useState(null);
+  const [sample, setSample] = useState('');
 
   useEffect(() => {
     if(sessionStorage.user){
       account = JSON.parse(sessionStorage.user)
       setInfo(account)
-    } 
-    if(sessionStorage.newUser) {
+    } else {
       account = JSON.parse(sessionStorage.newUser);
       setInfo({
         account: account,
@@ -48,8 +46,6 @@ const CreateProfile = () => {
     }
   },[])
 
-  const [hobby, setHobby] = useState(null);
-  const [sample, setSample] = useState(blankAva);
 
   const handleAvatar = (event) => {
     const file = event.target.files[0];
@@ -61,6 +57,7 @@ const CreateProfile = () => {
       ...info,
       [event.target.name]: event.target.value,
     })
+    console.log(info);
   }
 
   const handleSubmit = (event) => {
@@ -69,28 +66,17 @@ const CreateProfile = () => {
       hobby: hobby,
       photos: sample
     })
-    addUser(info, (result) => {
-      if (result !== '') {
-        window.alert(result)
-      }
-    })
+
     console.log(info);
-    const usersFilter = { account: account }
-    getUsers(usersFilter, (users) => {
-      sessionStorage.setItem('user', JSON.stringify(users[0]));
-    })
-    navigate('/m')
+    editProfile(localStorage.getItem('userId'), info, (result) => console.log(result))
     event.preventDefault();
   }
   console.log(info);
-  if(!sessionStorage.length){
-    return <Signup/>
-  }
 
   return (
   <div className='create-page'>
     <div className='profile'>
-      <h1>{info.displayName} PROFILE</h1>
+      <h1>YOUR PROFILE</h1>
       <form className='user-profile'>
         <div className='txt_field'>
           <input 
@@ -106,14 +92,14 @@ const CreateProfile = () => {
           <input 
             type='text'
             name='age'
-            value={info.age}
+            value={info.age === null ? '' : info.age}
             onChange={handleChange}
             required/>
             <label>Age</label>
         </div>
 
         <div className='gender'>
-          <h3>gender : </h3>
+          <h3>Gender : </h3>
           <input
             type='radio'
             value='Male'
