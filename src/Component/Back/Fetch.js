@@ -43,13 +43,13 @@ export function editProfile(userId, profile, callback) {
     .then(result => callback(result))
 }
 
-export function getMessages(address, callback){
+export function getConversation(participant, callback){
   const fetchOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(address),
+    body: JSON.stringify(participant),
   }
 
   fetch("http://localhost:3001/getMessages", fetchOptions)
@@ -66,7 +66,7 @@ export function sendMessage(message, callback){
     body: JSON.stringify(message),
   }
 
-  fetch("http://localhost:3001/addMessages", fetchOptions)
+  fetch("http://localhost:3001/addMessage", fetchOptions)
     .then(res => res.json())
     .then(messages => callback(messages))
 }

@@ -43,7 +43,7 @@ function MenuBox() {
               Chat
             </button>
         </div>
-        {tab === 'matches' ? <MatchesBox setTab={setTab} setChat={setChat} mat={user.matched}/> : <ChatBox chat={chat}/>}
+        {tab === 'matches' ? <MatchesBox setTab={setTab} setChat={setChat} mat={user.matched}/> : <ChatBox address={chat}/>}
       </div>
     )
   }

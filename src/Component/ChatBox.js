@@ -1,14 +1,21 @@
 import { React, useState, useEffect } from 'react'
-import { sendMessage } from './Back/Fetch';
+import { sendMessage, getConversation } from './Back/Fetch';
 
 const ChatBox = (props) => {
   const [chatHistoty, setChatHistory] = useState([]);
   const [message, setMessage] = useState({
-    address: props.chat,
+    address: props.address,
     message: '',
   })
+  //get old message
   useEffect(() => {
-    //get old message
+    const party = {
+      id1: props.address.from,
+      id2: props.address.to
+    }
+    getConversation(party, (mess) => {
+      setChatHistory([...chatHistoty, ...mess])
+    })
   },[])
 
   const handleChange = (event) => {
@@ -25,17 +32,20 @@ const ChatBox = (props) => {
         ...message,
         message: ''
       })
-      console.log('send success');
+      console.log(mess);
     })
   }
 
+  console.log(chatHistoty);
+  console.log('outside useEffect');
   return (
     <div className='chatBox'>
       <div className='message-container'>
         {
           chatHistoty.map(mess => {
             return (
-              <div id={chatHistoty.indexOf(mess)}>
+              <div key={chatHistoty.indexOf(mess)}>
+                {mess.address.from}:
                 {mess.message}
               </div>
             )

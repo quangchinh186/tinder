@@ -73,8 +73,18 @@ app.post("/editProfile", editProfile);
 
 //GET MESSAGES
 function getMessages(req, res) {
-  const address = req.body
-  messageCollection.find(address).then(mess => res.json(mess))
+  const ids = req.body;
+  console.log(ids);
+  const q1 = {
+    from: ids.id1,
+    to: ids.id2
+  }
+  const q2 = {
+    from: ids.id2,
+    to: ids.id1
+  }
+  messageCollection.find({$or:[{address: q1},{address: q2}]})
+    .then(mess => res.json(mess))
 }
 app.post("/getMessages", getMessages);
 
@@ -102,13 +112,26 @@ usersCollection.watch()
     updateUser();
   })
 
+messageCollection.watch()
+  .on('change', () => {
+    updateMessage();
+  })
+
 updateUser();
+updateMessage();
 
 async function updateUser() {
   var users = await usersCollection.find()
   console.log(users);
-  app.get('/', (req, res) => {
+  app.get('/users', (req, res) => {
     res.json(users);
   })
 }
 
+async function updateMessage() {
+  var message = await messageCollection.find()
+  console.log(message);
+  app.get('/messages', (req, res) => {
+    res.json(message)
+  })
+}
