@@ -1,21 +1,21 @@
 import { React, useState, useEffect } from 'react'
-import {getUsers} from './Back/Fetch'
+import { getUsers } from './Back/Fetch'
 
 const MatchesBox = (props) => {
-  const mat = (JSON.parse(sessionStorage.user)).Matched;
   const [matched, setMatched] = useState([])
-
   useEffect(() => {
-    const usersFilter = { _id: mat }
-    getUsers(usersFilter, (users) => {
-      setMatched(users);
-    })
-  })
+    if(props.mat){
+      getUsers({_id: props.mat}, (users) => {
+        setMatched(users);
+      })
+    }
+  },[]);
 
   const handleClick = (e) => {
-    console.log('choosed user');
-    console.log(e.target.name);
-    props.setChatW(e.target.name)
+    props.setChat({
+      from: sessionStorage.getItem('userId'),
+      to: e.target.name
+    })
     props.setTab('chat')
   }
 
@@ -25,14 +25,14 @@ const MatchesBox = (props) => {
         matched.map(m => {
           return(
             <button key={m._id} 
-            name={m.displayName} 
+            name={m._id} 
             onClick={handleClick}
             style = {{
-              backgroundImage : `url("${m.photos[0]}")`,
+              backgroundImage : `url("${m.profile.photos[0]}")`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
             }}>
-              {m.displayName}
+              {m.profile.displayName}
             </button>
           )
         })

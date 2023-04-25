@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import data from '../Test/users.json'
 import {addUser} from './Back/Fetch';
 import { useNavigate } from 'react-router-dom';
 
@@ -26,11 +25,11 @@ function Signup() {
     } else {
       console.log(account)
       addUser(account, (result) => {
-        if (result === 'Username taken!!1!') {
+        if (result === 'Username taken!!!') {
           window.alert(result)
         } else {
-          localStorage.setItem('userId', result);
-          navigate("/signup/newProfile")
+          sessionStorage.setItem('userId', result);
+          navigate("/profile")
         }
       })
       event.preventDefault();

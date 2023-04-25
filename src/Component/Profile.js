@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react'
 import Select from 'react-select';
-import {addUser, getUsers} from './Back/Fetch';
+import { editProfile, getUsers} from './Back/Fetch';
 import { useNavigate } from 'react-router-dom';
 
 const blankAva = 'https://i.postimg.cc/Ssgg8MYS/download.jpg';
@@ -20,58 +20,56 @@ const hobbies = [
   { value: 'Travel', label: 'Travel'}
 ]
 
-const CreateProfile = () => {
+const Profile = () => {
   let navigate = useNavigate();
-  var account;
-  const [info, setInfo] = useState({
+  const userId = sessionStorage.getItem('userId');
+  const [profile, setProfile] = useState({
     displayName : '',
-    age : '',
+    age : 1,
     gender : '',
     genderInterest : '',
+    description: '',
     photos: [],
+    hobby: []
   })
   const [hobby, setHobby] = useState(null);
-  const [sample, setSample] = useState('');
-
+  const [photos, setPhotos] = useState([blankAva]);
+  
+  //get current user profile
   useEffect(() => {
-    if(sessionStorage.user){
-      account = JSON.parse(sessionStorage.user)
-      setInfo(account)
-    } else {
-      account = JSON.parse(sessionStorage.newUser);
-      setInfo({
-        account: account,
-        ...info
-      })
-    }
+    const filter = {_id: userId}
+    getUsers(filter, (users) => {
+      setProfile(users[0].profile)
+      console.log(users[0]);
+    })
   },[])
 
 
-  const handleAvatar = (event) => {
+  //uploading photos (later)
+  const handleAddPhotos = (event) => {
     const file = event.target.files[0];
-    setSample(URL.createObjectURL(file));
+    setPhotos([...photos, URL.createObjectURL(file)]);
   }
 
   const handleChange = (event) => {
-    setInfo({
-      ...info,
+    setProfile({
+      ...profile,
       [event.target.name]: event.target.value,
     })
-    console.log(info);
   }
 
   const handleSubmit = (event) => {
-    setInfo({
-      ...info,
+    setProfile({
+      ...profile,
       hobby: hobby,
-      photos: sample
+      photos: photos
     })
-
-    console.log(info);
-    editProfile(localStorage.getItem('userId'), info, (result) => console.log(result))
+    editProfile(userId, profile, (result) => {
+      console.log(result);
+    })
+    navigate('/m')
     event.preventDefault();
   }
-  console.log(info);
 
   return (
   <div className='create-page'>
@@ -82,7 +80,7 @@ const CreateProfile = () => {
           <input 
           type='text' 
           name='displayName'
-          value={info.displayName}
+          value={profile.displayName}
           onChange={handleChange}
           required/>
           <label>Your Name</label>
@@ -92,7 +90,7 @@ const CreateProfile = () => {
           <input 
             type='text'
             name='age'
-            value={info.age === null ? '' : info.age}
+            value={profile.age}
             onChange={handleChange}
             required/>
             <label>Age</label>
@@ -136,6 +134,16 @@ const CreateProfile = () => {
           
         </div>
 
+        <div className='desc'>
+          <input 
+          type='text' 
+          name='description'
+          value={profile.description}
+          onChange={handleChange}
+          required/>
+          <label>Description</label>
+        </div>
+
         <div className='hobby'>
           <Select
           placeholder='Hobby'
@@ -151,7 +159,7 @@ const CreateProfile = () => {
 
         <div className='image-holder'>
           <label htmlFor="file-upload" className="image-upload">Add photo+</label>
-          <input id="file-upload" type="file" onChange={handleAvatar}/>
+          <input id="file-upload" type="file" onChange={handleAddPhotos}/>
         </div>
 
         <button className='regist' type='submit' onClick={handleSubmit}>Get Start</button>
@@ -160,7 +168,7 @@ const CreateProfile = () => {
 
     <div className='card-preview' 
       style = {{
-        backgroundImage : `url("${sample}")`,
+        backgroundImage : `url("${photos[0]}")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         
@@ -170,12 +178,12 @@ const CreateProfile = () => {
           <button className='next' >{'>'}</button>
       </div>
       <div className="card-body-text">
-        <h1>{info.displayName}</h1>
-        <h1>{info.age}</h1>
+        <h1>{profile.displayName}</h1>
+        <h1>{profile.age}</h1>
       </div>
     </div>
   </div>
   )
 }
 
-export default CreateProfile
+export default Profile

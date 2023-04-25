@@ -10,19 +10,19 @@ function addNew(like) {
 }
 
 function Main() {
+  //get profile card
   const [candidates, setCandidates] = useState([]);
-  
   useEffect(() => {
     const usersFilter = {}
     getUsers(usersFilter, (users) => {
       setCandidates(users);
     })
-  })
-
-
-  if(!sessionStorage.user){
+  },[])
+  //if not login
+  if(!sessionStorage.userId){
     return <Login/>
   }
+  
   return (
     <div className='main'>
       <MenuBox/>
