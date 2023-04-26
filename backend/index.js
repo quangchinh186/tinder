@@ -14,11 +14,36 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const io = require("socket.io")(3002, {
+  cors: {
+    origin: ["http://localhost:3000"]
+  }
+});
+io.on("connection", (socket) => {
+  console.log("socket.io: User connected: ", socket.id);
+
+  socket.on("disconnect", () => {
+    console.log("socket.io: User disconnected: ", socket.id);
+  });
+});
+
 mongoose.connect('mongodb+srv://quangchinh1122:chinh2003@uetinder.bmmhsoe.mongodb.net/uetinder-data?retryWrites=true&w=majority')
   .then(() => {
     app.listen(3001)
-    console.log("Connected to MongoDB Atlas")
   })
+
+
+//emit change to messages collection
+const connection = mongoose.connection;
+connection.once("open", () => {
+  console.log("MongoDB database connected");
+  console.log("Setting change streams");
+  const messageChangeStream = connection.collection("messages").watch();
+    messageChangeStream.on("change", (change) => {
+      const message = change.fullDocument
+      io.emit("message", message);
+    });
+  });
 
 //GET USER
 function getUsers(req, res) {
@@ -74,7 +99,6 @@ app.post("/editProfile", editProfile);
 //GET MESSAGES
 function getMessages(req, res) {
   const ids = req.body;
-  console.log(ids);
   const q1 = {
     from: ids.id1,
     to: ids.id2
@@ -109,12 +133,12 @@ app.post("/addMessage", addMessage);
 
 usersCollection.watch()
   .on('change', () => {
-    updateUser();
+    //updateUser();
   })
 
 messageCollection.watch()
   .on('change', () => {
-    updateMessage();
+    //updateMessage();
   })
 
 updateUser();
@@ -135,3 +159,4 @@ async function updateMessage() {
     res.json(message)
   })
 }
+
