@@ -24,7 +24,6 @@ function Login() {
         window.alert("Wrong username or password!!1!")
       } else {
         sessionStorage.setItem('userId', users[0]._id);
-        console.log(users[0])
         navigate('/m')
       }
     })

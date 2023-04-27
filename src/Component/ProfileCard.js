@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from 'react'
 import { motion } from "framer-motion";
+import Info from './Info';
 
 const ProfileCard = (props) => {
   const numberOfPhotos = props.user.profile.photos.length - 1;
@@ -45,9 +46,9 @@ const ProfileCard = (props) => {
                   backgroundSize: "cover"
                 }}
       >
-      {showInfo? <div>
-        info
-          <button onClick={() => setShowInfo(false)}>x</button>
+      {showInfo? <div className='info-container'>
+          <Info user={props.user}/>
+          <button className='closeInfo' onClick={() => setShowInfo(false)}>✖</button>
         </div> : <div></div>}
 
       <div className='current-image'>

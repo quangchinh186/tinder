@@ -13,7 +13,7 @@ const userSchema = mongoose.Schema({
         genderInterest: String,
         description: String,
         photos: [String],
-        hobby: [String],
+        hobby: [Object],
     },
     matched: [String],
     potentialUser: [String],

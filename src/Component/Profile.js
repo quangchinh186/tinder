@@ -33,7 +33,7 @@ const Profile = () => {
     photos: [],
     hobby: []
   })
-  const [hobby, setHobby] = useState(null);
+  const [hobby, setHobby] = useState();
   const [file, setFile] = useState("")
   const [currentPhoto, setCurrentPhoto] = useState(0)
 
@@ -41,9 +41,11 @@ const Profile = () => {
   useEffect(() => {
     const filter = {_id: userId}
     getUsers(filter, (users) => {
+      console.log(users[0]);
       const pf = users[0].profile;
       setProfile(pf);
       setHobby(pf.hobby);
+      console.log(pf);
     })
   },[])
 
@@ -82,6 +84,13 @@ const Profile = () => {
     })
   }
 
+  useEffect(() => {
+    setProfile({
+      ...profile,
+      hobby: hobby
+    })
+  }, [hobby])
+
   const handleSubmit = (event) => {
     console.log(profile);
     editProfile(userId, profile, (result) => {
@@ -90,7 +99,7 @@ const Profile = () => {
     })
     event.preventDefault();
   }
-
+  const temp = profile.hobby;
   return (
   <div className='create-page'>
     <div className='profile'>
@@ -159,25 +168,24 @@ const Profile = () => {
         </div>
 
         <div className='desc'>
+          <label>Description:  </label>
           <input 
           type='text' 
           name='description'
           value={profile.description}
           onChange={handleChange}
           required/>
-          <label>Description</label>
         </div>
 
         <div className='hobby'>
+          {console.log(temp)}
           <Select
-          placeholder='Hobby'
-          defaultValue={hobby}
+          defaultValue={temp}
           onChange={setHobby}
           isMulti
           name="hobby"
           options={hobbies}
           className="basic-multi-select"
-          
           />
         </div>
 
