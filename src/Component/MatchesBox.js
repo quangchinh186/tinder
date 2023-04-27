@@ -11,11 +11,13 @@ const MatchesBox = (props) => {
     }
   },[]);
 
-  const handleClick = (e) => {
+  const handleClick = (m) => {
+    //console.log(m);
     props.setChat({
       from: sessionStorage.getItem('userId'),
-      to: e.target.name
+      to: m._id
     })
+    props.setChatPartner(m);
     props.setTab('chat')
   }
 
@@ -26,7 +28,7 @@ const MatchesBox = (props) => {
           return(
             <button key={m._id} 
             name={m._id} 
-            onClick={handleClick}
+            onClick={() => {handleClick(m)}}
             style = {{
               backgroundImage : `url("${m.profile.photos[0]}")`,
               backgroundRepeat: "no-repeat",

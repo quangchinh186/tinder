@@ -13,6 +13,7 @@ function MenuBox() {
     from: '',
     to: ''
   });
+  const [chatPartner, setChatPartner] = useState({})
   const showProfile = () => {
     navigate('/profile');
   }
@@ -43,7 +44,7 @@ function MenuBox() {
               Chat
             </button>
         </div>
-        {tab === 'matches' ? <MatchesBox setTab={setTab} setChat={setChat} mat={user.matched}/> : <ChatBox address={chat}/>}
+        {tab === 'matches' ? <MatchesBox setChatPartner={setChatPartner} setTab={setTab} setChat={setChat} mat={user.matched}/> : <ChatBox address={chat} chatPartner={chatPartner}/>}
       </div>
     )
   }

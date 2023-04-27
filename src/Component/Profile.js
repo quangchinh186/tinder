@@ -1,7 +1,8 @@
 import { React, useState, useEffect } from 'react'
 import Select from 'react-select';
-import { editProfile, getUsers} from './Back/Fetch';
+import { editProfile, getUsers } from './Back/Fetch';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const blankAva = 'https://i.postimg.cc/Ssgg8MYS/download.jpg';
 
@@ -33,22 +34,45 @@ const Profile = () => {
     hobby: []
   })
   const [hobby, setHobby] = useState(null);
-  const [photos, setPhotos] = useState([blankAva]);
-  
+  const [file, setFile] = useState("")
+  const [currentPhoto, setCurrentPhoto] = useState(0)
+
   //get current user profile
   useEffect(() => {
     const filter = {_id: userId}
     getUsers(filter, (users) => {
-      setProfile(users[0].profile)
-      console.log(users[0]);
+      const pf = users[0].profile;
+      setProfile(pf);
+      setHobby(pf.hobby);
     })
   },[])
 
 
   //uploading photos (later)
-  const handleAddPhotos = (event) => {
-    const file = event.target.files[0];
-    setPhotos([...photos, URL.createObjectURL(file)]);
+  const handleAddPhotos = (e) =>{
+    const file = e.target.files[0];
+    setFile(file);
+  }
+
+  const upload = (e) => {
+    console.log(file);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "pxtanlz6");
+    const config = {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    };
+    axios.post("https://api.cloudinary.com/v1_1/dgxxwn6p1/image/upload", formData, config)
+      .then((res) => {
+        setFile("")
+        setProfile({
+          ...profile,
+          photos: [...profile.photos, res.data.secure_url]
+        })
+        console.log(res.data.secure_url);
+        alert('upload success')
+      })
+    e.preventDefault();
   }
 
   const handleChange = (event) => {
@@ -59,15 +83,11 @@ const Profile = () => {
   }
 
   const handleSubmit = (event) => {
-    setProfile({
-      ...profile,
-      hobby: hobby,
-      photos: photos
-    })
+    console.log(profile);
     editProfile(userId, profile, (result) => {
       console.log(result);
+      navigate('/m')
     })
-    navigate('/m')
     event.preventDefault();
   }
 
@@ -103,12 +123,14 @@ const Profile = () => {
             value='Male'
             name='gender'
             onChange={handleChange}
+            checked = {'Male' === profile.gender}
           />
           <label>Male</label>
           <input
             type='radio'
             value='Female'
             name='gender'
+            checked = {'Female' === profile.gender}
             onChange={handleChange}
           />
           <label>Female</label>
@@ -120,6 +142,7 @@ const Profile = () => {
             type='radio'
             value='Male'
             name='genderInterest'
+            checked = {'Male' === profile.genderInterest}
             onChange={handleChange}
           />
           <label>Male</label>
@@ -128,6 +151,7 @@ const Profile = () => {
             type='radio'
             value='Female'
             name='genderInterest'
+            checked = {'Female' === profile.genderInterest}
             onChange={handleChange}
           />
           <label>Female</label>
@@ -160,22 +184,22 @@ const Profile = () => {
         <div className='image-holder'>
           <label htmlFor="file-upload" className="image-upload">Add photo+</label>
           <input id="file-upload" type="file" onChange={handleAddPhotos}/>
+          {file? <button onClick={upload}>upload</button> : <div></div>}
         </div>
 
         <button className='regist' type='submit' onClick={handleSubmit}>Get Start</button>
       </form>
     </div>
-
+    
     <div className='card-preview' 
       style = {{
-        backgroundImage : `url("${photos[0]}")`,
+        backgroundImage : `url("${profile.photos.length ? profile.photos[currentPhoto] : blankAva }")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        
       }}>
       <div className='current-image'>
-          <button className='prev' >{'<'}</button>
-          <button className='next' >{'>'}</button>
+          <button className='prev' onClick={() => setCurrentPhoto(Math.max(currentPhoto-1, 0))} >{'<'}</button>
+          <button className='next' onClick={() => setCurrentPhoto(Math.min(currentPhoto+1, profile.photos.length-1))} >{'>'}</button>
       </div>
       <div className="card-body-text">
         <h1>{profile.displayName}</h1>

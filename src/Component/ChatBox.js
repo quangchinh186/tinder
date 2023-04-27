@@ -35,6 +35,10 @@ const ChatBox = (props) => {
     })
   },[])
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({behavior: 'smooth'});
+  }, [chatHistoty])
+
   const handleChange = (event) => {
     setMessage({
       ...message,
@@ -54,10 +58,24 @@ const ChatBox = (props) => {
     }
   }
 
-  messagesEndRef.current?.scrollIntoView({behavior: 'smooth'});
+  if(JSON.stringify(props.chatPartner) === "{}"){
+    return;
+  }else{
 
   return (
     <div className='chatBox'>
+      <div className='header'>
+        <button
+          style = {{
+            backgroundImage : `url("${props.chatPartner.profile.photos[0]}")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            height: "30px", width: "30px",
+            borderRadius: "50%", border: "white", marginLeft: "10px"
+          }}>
+        </button>
+        {props.chatPartner.profile.displayName}
+      </div>
       <div className='message-container'>
         {
           chatHistoty.map(mess => {
@@ -82,6 +100,6 @@ const ChatBox = (props) => {
       </div>
     </div>
   )
-}
+}}
 
 export default ChatBox

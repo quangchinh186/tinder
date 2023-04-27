@@ -70,3 +70,4 @@ export function sendMessage(message, callback){
     .then(res => res.json())
     .then(messages => callback(messages))
 }
+

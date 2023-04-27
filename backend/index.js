@@ -1,8 +1,7 @@
-const usersCollection = require('./Model/UserModel');
-const messageCollection = require('./Model/MessageModel');
-
 const mongoose = require('mongoose');
 const express = require('express');
+const usersCollection = require('./Model/UserModel');
+const messageCollection = require('./Model/MessageModel');
 
 mongoose.pluralize(null);
 const app = express();
@@ -91,7 +90,7 @@ function editProfile(req, res) {
   let queryObject = {_id : req.body._id };
   let newValue = {$set: {profile: req.body.profile}}
   usersCollection.updateOne(queryObject, newValue)
-    .then((result) => console.log(result))
+    .then((result) => res.json(result))
 }
 app.post("/editProfile", editProfile);
 

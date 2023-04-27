@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cloudinary": "^1.36.2",
     "express": "^4.18.2",
     "mongoose": "^7.0.3",
     "socket.io": "^4.6.1"

@@ -114,10 +114,11 @@ body{
 }
 
 .message-container {
-  height: 75vh;
+  height: 70vh;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  border-top: #fe3c72;
 }
 
 .message-container div{
@@ -139,7 +140,14 @@ body{
   outline: none;
 }
 
-
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color:lightblue;
+  height: 40px;
+  color: black;
+}
 
 .new-message-container button{
   background-color: white;
