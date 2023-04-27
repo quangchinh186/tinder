@@ -6,16 +6,20 @@ const ProfileCard = (props) => {
   const [x, setX] = useState(0);
   const [opacity, setShow] = useState(1);
   const [imageId, setImageId] = useState(0);
+  const [showInfo, setShowInfo] = useState(false)
   const [url, setUrl] = useState('url("' + props.user.profile.photos[imageId] + '")')
   //handle swiping card
   const goLeft = () => {
+    props.dislike(props.user._id)
     setX(-1000);
     setShow(0);
   }
   const goRight = () => {
+    props.liked(props.user._id);
     setX(1000);
     setShow(0);
   }
+
   //handle current display image
   useEffect(() => {
     setUrl('url("' + props.user.profile.photos[imageId] + '")');
@@ -41,6 +45,11 @@ const ProfileCard = (props) => {
                   backgroundSize: "cover"
                 }}
       >
+      {showInfo? <div>
+        info
+          <button onClick={() => setShowInfo(false)}>x</button>
+        </div> : <div></div>}
+
       <div className='current-image'>
           <button className='prev' onClick={() => setImageId(Math.max(imageId-1, 0))}>{'<'}</button>
           <button className='next' onClick={() => setImageId(Math.min(imageId+1, numberOfPhotos))}>{'>'}</button>
@@ -48,6 +57,7 @@ const ProfileCard = (props) => {
       <div className="card-body-text">
         <h1>{props.user.profile.displayName}</h1>
         <h1>{props.user.profile.age}</h1>
+        <button onClick={() => setShowInfo(!showInfo)}>show details</button>
       </div>
     </motion.div>
   )

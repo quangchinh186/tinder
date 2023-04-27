@@ -1,3 +1,4 @@
+//account
 export function getUsers(filter, callback) {
   const fetchOptions = {
     method: "POST",
@@ -37,12 +38,61 @@ export function editProfile(userId, profile, callback) {
       profile: profile,
     }),
   }
-
   fetch("http://localhost:3001/editProfile", fetchOptions)
     .then(res => res.json())
     .then(result => callback(result))
 }
 
+//matching
+export function addPotential(userId, potentialId, callback) {
+  const fetchOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      _id: userId,
+      potentialUser: potentialId,
+    }),
+  }
+  fetch("http://localhost:3001/liked", fetchOptions)
+    .then(res => res.json())
+    .then(result => callback(result))
+}
+
+export function matching(userId, newMatched, callback) {
+  const fetchOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId: userId,
+      newMatched: newMatched
+    }),
+  }
+  fetch("http://localhost:3001/matching", fetchOptions)
+    .then(res => res.json())
+    .then(result => callback(result))
+}
+
+export function dislike(userId, disLike, callback) {
+  const fetchOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      _id: userId,
+      disLike: disLike
+    }),
+  }
+  fetch("http://localhost:3001/dislike", fetchOptions)
+    .then(res => res.json())
+    .then(result => callback(result))
+}
+
+//chatting
 export function getConversation(participant, callback){
   const fetchOptions = {
     method: "POST",

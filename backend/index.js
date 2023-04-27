@@ -76,6 +76,7 @@ function addUser(req, res) {
           },
           matched: [],
           potentialUser: [],
+          disLike: []
         });
         newUser.save();
         res.json(newUser._id);
@@ -93,6 +94,30 @@ function editProfile(req, res) {
     .then((result) => res.json(result))
 }
 app.post("/editProfile", editProfile);
+//MATCH
+function matching(req, res) {
+  let queryObject = {_id : req.body.userId };
+  let newValue = {$push: {"matched": req.body.newMatched}}
+  usersCollection.updateOne(queryObject, newValue)
+    .then((result) => res.json(result))
+}
+app.post("/matching", matching);
+//LIKE
+function liked(req, res) {
+  let queryObject = {_id : req.body._id };
+  let newValue = {$push: {"potentialUser": req.body.potentialUser}}
+  usersCollection.updateOne(queryObject, newValue)
+    .then((result) => res.json(result))
+}
+app.post("/liked", liked);
+//DISLIKE
+function dislike(req, res) {
+  let queryObject = {_id : req.body._id };
+  let newValue = {$push: {"disLike": req.body.disLike}}
+  usersCollection.updateOne(queryObject, newValue)
+    .then((result) => res.json(result))
+}
+app.post("/dislike", dislike);
 
 
 //GET MESSAGES

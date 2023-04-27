@@ -17,6 +17,7 @@ const userSchema = mongoose.Schema({
     },
     matched: [String],
     potentialUser: [String],
+    disLike: [String]
   });
 
 module.exports = mongoose.model('users', userSchema)
